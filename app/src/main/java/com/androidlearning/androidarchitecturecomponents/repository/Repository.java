@@ -59,8 +59,8 @@ public class Repository {
     }
 
 
-    public Flowable<List<Shop>> getShops() {
-        return Flowable.fromCallable(() -> LocalDataSource.getInstance().getShops())
+    public Observable<List<Shop>> getShops() {
+        return Observable.fromCallable(() -> LocalDataSource.getInstance().getShops())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

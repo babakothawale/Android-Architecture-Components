@@ -23,7 +23,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
         this.listener = listener;
     }
 
-
     @NonNull
     @Override
     public ShopAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,7 +31,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ShopAdapter.ViewHolder holder, int position) {
         holder.click(data.get(position), listener);
@@ -40,15 +38,20 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
         holder.tvAddress.setText(data.get(position).getAddress());
     }
 
-
     @Override
     public int getItemCount() {
         return data.size();
     }
 
+    public void setShops(List<Shop> shops) {
+        this.data.clear();
+        this.data.addAll(shops);
+        notifyDataSetChanged();
+    }
 
     public interface OnItemClickListener {
         void onClick(Shop shop);
+
         void onDeleteClick(Shop shop, int position);
 
         void onEditClick(Shop shop, int position);
@@ -66,14 +69,11 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
 
         }
 
-
         public void click(final Shop shops, final OnItemClickListener listener) {
             itemView.setOnClickListener(v -> listener.onClick(shops));
 
-            itemView.findViewById(R.id.imageview_delete).setOnClickListener((v)->listener.onDeleteClick(shops, getAdapterPosition()));
-            itemView.findViewById(R.id.imageview_edit).setOnClickListener((v)->listener.onEditClick(shops, getAdapterPosition()));
+            itemView.findViewById(R.id.imageview_delete).setOnClickListener((v) -> listener.onDeleteClick(shops, getAdapterPosition()));
+            itemView.findViewById(R.id.imageview_edit).setOnClickListener((v) -> listener.onEditClick(shops, getAdapterPosition()));
         }
     }
-
-
 }
